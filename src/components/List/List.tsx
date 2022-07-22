@@ -1,25 +1,31 @@
-import React from 'react';
-//import PubSub from 'pubsub-js';
+import React, { useEffect } from 'react';
+import { nanoid } from 'nanoid';
 import './index.css';
+import { Todo } from '../../App';
+import Item from '../Item/Item';
 
-export default function List() {
-  // function handleKeyUp(event) {
-  //   let { target, keyCode } = event;
-  //   if (keyCode !== 13) return;
-  //   if (target.value.trim() === '') {
-  //     alert('输入不能为空');
-  //     return;
-  //   }
-  //   PubSub.publish('addTodo', target.value);
-  //   target.value = '';
-  //}
-  return (
-    <div className="todo-header">
-      <input
-        type="text"
-        placeholder="请输入你的任务，回车确认"
-        //onKeyUp={handleKeyUp}
-      />
-    </div>
-  );
+interface TodoListProps {
+  todos: Todo[];
+  deleteTodo: (name: string) => void;
+  updateTodo: (name: string, checked: boolean) => void;
 }
+
+const List: React.FC<TodoListProps> = (Props) => {
+  const { todos, deleteTodo, updateTodo } = Props;
+  return (
+    <ul className="todo-main">
+      {todos.map((todo) => {
+        return (
+          <Item
+            {...todo}
+            key={todo.id}
+            deleteTodo={deleteTodo}
+            updateTodo={updateTodo}
+          />
+        );
+      })}
+    </ul>
+  );
+};
+
+export default List;

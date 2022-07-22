@@ -1,31 +1,36 @@
 import React, { useEffect } from 'react';
-//import PubSub from 'pubsub-js';
-
+import { Todo } from '../../App';
 import './index.css';
 
-export default function Footer() {
+interface FooterProps {
+  todos: Todo[];
+  checkAll: (done: boolean) => void;
+  clearAll: () => void;
+}
+
+const Footer: React.FC<FooterProps> = (Props) => {
+  const { todos } = Props;
   const [total, setTotal] = React.useState(3);
   const [finished, setfinished] = React.useState(2);
 
-  // function checkAll(event) {
-  //   PubSub.publish('checkall', event.target.checked);
-  // }
+  function checkAll(event: any) {
+    Props.checkAll(event.target.checked);
+  }
 
-  // function clearAll(event) {
-  //   PubSub.publish('clearAll', event.target.checked);
-  // }
+  function clearAll() {
+    Props.clearAll();
+  }
 
-  // useEffect(() => {
-  //   PubSub.subscribe('todos', (_, todos) => {
-  //     let total = todos.length;
-  //     let finished = 0;
-  //     for (var i in todos) {
-  //       if (todos[i].done) finished++;
-  //     }
-  //     setfinished(finished);
-  //     setTotal(total);
-  //   });
-  // }, []);
+  //todos更新时调用
+  useEffect(() => {
+    let total = todos.length;
+    let finished = 0;
+    for (var i in todos) {
+      if (todos[i].done) finished++;
+    }
+    setfinished(finished);
+    setTotal(total);
+  }, [todos]);
 
   return (
     <div className="todo-footer">
@@ -33,15 +38,17 @@ export default function Footer() {
         <input
           type="checkbox"
           checked={finished === total && total !== 0 ? true : false}
-          // onChange={checkAll}
+          onChange={checkAll}
         />
       </label>
       <span>
         <span>已完成{finished}</span> / 全部{total}
       </span>
-      {/* <button className="btn btn-danger" onClick={clearAll}>
+      <button className="btn btn-danger" onClick={clearAll}>
         清除已完成任务
-      </button> */}
+      </button>
     </div>
   );
-}
+};
+
+export default Footer;
