@@ -1,6 +1,6 @@
+import { Button, Checkbox, Space } from 'antd';
 import React, { useEffect } from 'react';
 import { Todo } from '../../App';
-import './index.css';
 
 interface FooterProps {
   todos: Todo[];
@@ -33,21 +33,21 @@ const Footer: React.FC<FooterProps> = (Props) => {
   }, [todos]);
 
   return (
-    <div className="todo-footer">
+    <Space size={300}>
       <label>
-        <input
-          type="checkbox"
+        <Checkbox
           checked={finished === total && total !== 0 ? true : false}
           onChange={checkAll}
-        />
+        ></Checkbox>
+        <span>
+          <span>已完成{finished}</span> / 全部{total}
+        </span>
       </label>
-      <span>
-        <span>已完成{finished}</span> / 全部{total}
-      </span>
-      <button className="btn btn-danger" onClick={clearAll}>
+
+      <Button type="primary" onClick={clearAll}>
         清除已完成任务
-      </button>
-    </div>
+      </Button>
+    </Space>
   );
 };
 

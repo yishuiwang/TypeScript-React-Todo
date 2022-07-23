@@ -2,8 +2,11 @@ import React from 'react';
 import { nanoid } from 'nanoid';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import List from './components/List/List';
+import Main from './components/List/List';
 import './App.css';
+import { Button, Col, Divider, Layout, List, Row, Space } from 'antd';
+import { Content } from 'antd/lib/layout/layout';
+import Item from 'antd/lib/list/Item';
 
 //Todo数据类型
 export interface Todo {
@@ -66,12 +69,20 @@ export default function App() {
   };
 
   return (
-    <div className="todo-container">
-      <div className="todo-wrap">
-        <Header addTodo={addTodo} />
-        <List todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo} />
-        <Footer todos={todos} clearAll={clearAll} checkAll={checkAll} />
-      </div>
-    </div>
+    <Row>
+      <Col span={12} offset={6}>
+      <List
+        //grid={{gutter:2}}
+        size="large"
+        header={<Header addTodo={addTodo} />}
+        footer={<Footer todos={todos} clearAll={clearAll} checkAll={checkAll} />}
+        bordered
+        dataSource={todos}
+        renderItem={(item) => <Main todo={item} deleteTodo={deleteTodo} updateTodo={updateTodo} />}
+        //renderItem={item => <List.Item>{item.name}</List.Item>}
+      />
+
+      </Col>
+    </Row>
   );
 }

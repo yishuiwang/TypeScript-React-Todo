@@ -1,6 +1,6 @@
+import { Checkbox, List } from 'antd';
 import React from 'react';
 import { Todo } from '../../App';
-import './index.css';
 
 interface ItemProps {
   id: string;
@@ -16,7 +16,7 @@ const Item: React.FC<ItemProps> = (Props) => {
   function handleMouse(flag: boolean) {
     if (myRef.current) {
       if (flag === true) {
-        myRef.current.style.display = 'block';
+        myRef.current.style.display = 'none';
       } else {
         myRef.current.style.display = 'none';
       }
@@ -39,29 +39,39 @@ const Item: React.FC<ItemProps> = (Props) => {
   let { id, name, done } = Props;
 
   return (
-    <li
-      onMouseEnter={() => {
-        handleMouse(true);
-      }}
-      onMouseLeave={() => {
-        handleMouse(false);
-      }}
-    >
-      <label>
-        <input type="checkbox" checked={done} onChange={handleChange(id)} />
-        <span>{name}</span>
-      </label>
-      <button
-        ref={myRef}
-        className="btn btn-danger"
-        style={{ display: 'none' }}
-        onClick={() => {
-          handleDelete(id);
-        }}
-      >
-        删除
-      </button>
-    </li>
+    // <div>
+    //   <div
+    //     onMouseEnter={() => {
+    //       handleMouse(true);
+    //     }}
+    //     onMouseLeave={() => {
+    //       handleMouse(false);
+    //     }}
+    //   >
+    //     &ensp;
+    //     <label>
+    //       <Checkbox checked={done} onChange={handleChange(id)}>
+    //         {name}
+    //       </Checkbox>
+    //     </label>
+    //     <button
+    //       ref={myRef}
+    //       className="btn btn-danger"
+    //       style={{ display: 'none' }}
+    //       onClick={() => {
+    //         handleDelete(id);
+    //       }}
+    //     >
+    //       删除
+    //     </button>
+    //   </div>
+    // </div>
+    <h2>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Checkbox checked={done} onChange={handleChange(id)}>
+        {name}
+      </Checkbox>
+    </h2>
   );
 };
 
