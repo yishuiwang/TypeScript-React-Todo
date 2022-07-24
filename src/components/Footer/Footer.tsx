@@ -39,9 +39,7 @@ const Footer: React.FC<FooterProps> = (Props) => {
           checked={finished === total && total !== 0 ? true : false}
           onChange={checkAll}
         ></Checkbox>
-        <span>
-          <span>已完成{finished}</span> / 全部{total}
-        </span>
+        <span>已完成{finished}</span> / 全部{total}
       </label>
 
       <Button type="primary" onClick={clearAll}>

@@ -4,9 +4,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Main from './components/List/List';
 import './App.css';
-import { Button, Col, Divider, Layout, List, Row, Space } from 'antd';
-import { Content } from 'antd/lib/layout/layout';
-import Item from 'antd/lib/list/Item';
+import { Col, List, Row } from 'antd';
 
 //Todo数据类型
 export interface Todo {
@@ -69,20 +67,29 @@ export default function App() {
   };
 
   return (
-    <Row>
-      <Col span={12} offset={6}>
-      <List
-        //grid={{gutter:2}}
-        size="large"
-        header={<Header addTodo={addTodo} />}
-        footer={<Footer todos={todos} clearAll={clearAll} checkAll={checkAll} />}
-        bordered
-        dataSource={todos}
-        renderItem={(item) => <Main todo={item} deleteTodo={deleteTodo} updateTodo={updateTodo} />}
-        //renderItem={item => <List.Item>{item.name}</List.Item>}
-      />
-
-      </Col>
-    </Row>
+    <>
+      <Row align="middle">
+        <Col span={12} offset={6}>
+          <List style={{width:"600px"}}
+            //grid={{gutter:2}}
+            size="large"
+            header={<Header addTodo={addTodo} />}
+            footer={
+                <Footer todos={todos} clearAll={clearAll} checkAll={checkAll} />
+            }
+            bordered
+            dataSource={todos}
+            renderItem={(item) => (
+              <Main
+                todo={item}
+                deleteTodo={deleteTodo}
+                updateTodo={updateTodo}
+              />
+            )}
+            //renderItem={item => <List.Item>{item.name}</List.Item>}
+          />
+        </Col>
+      </Row>
+    </>
   );
 }
